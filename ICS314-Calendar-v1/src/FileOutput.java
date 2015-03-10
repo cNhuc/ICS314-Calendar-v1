@@ -20,16 +20,17 @@ public class FileOutput {
 		
 		String begin = "BEGIN:VCALENDAR\n";
 		String version = "VERSION:1.0\n";
-		String calscale = "CALSCALE:GREGORIA\n";
-		String calname = "X-WR-CALNAME:Longan Cal\n";
+		String calscale = "CALSCALE:GREGORIAN\n";
+		String publish = "METHOD:PUBLISH\n";
+		String calname = "X-WR-CALNAME:LonganCal\n";
 		String timezone = "X-WR-TIMEZONE:Pacific/Honolulu\n";
 		String begin2 = "BEGIN:VEVENT\n";
+		String dStart = "DTSTART;TZID=Pacific/Honolulu:" + sDateTime + "\n";
+		String dEnd = "DTEND;TZID=Pacific/Honolulu:" + eDateTime + "\n";
 		String classtype = "CLASS:PUBLIC\n";
 		String location = "LOCATION:" + this.location +"\n";
-		String priority = "PRIORITY:HIGH\n";
 		String summary = "SUMMARY:" + this.summary + "\n";
-		String dStart = "DTSTART;TZID=Pacific/Honolulu:" + sDateTime + "Z\n";
-		String dEnd = "DTEND;TZID=Pacific/Honolulu:" + eDateTime + "Z\n";
+		String priority = "PRIORITY:9\n";
 		String end2 = "END:VEVENT\n";
 		String end = "END:VCALENDAR\n";
 		
@@ -44,6 +45,7 @@ public class FileOutput {
 			}
 			
 			/* Converting data to bytes */
+			byte[] publishtoBytes = publish.getBytes();
 			byte[] versiontoBytes = version.getBytes();
 			byte[] classtypetoBytes = classtype.getBytes();
 			byte[] locationtoBytes = location.getBytes();
@@ -63,6 +65,7 @@ public class FileOutput {
 			fop.write(begintoBytes);
 			fop.write(versiontoBytes);
 			fop.write(calscaletoBytes);
+			fop.write(publishtoBytes);
 			fop.write(calnametoBytes);
 			fop.write(timezonetoBytes);
 			fop.write(begin2toBytes);
@@ -83,7 +86,6 @@ public class FileOutput {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 
 	}
 
